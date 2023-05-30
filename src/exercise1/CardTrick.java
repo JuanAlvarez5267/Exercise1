@@ -1,12 +1,15 @@
 package exercise1;
 
+import java.util.Random;
+import java.util.Scanner;
+
 /**
  * A class that fills a hand of 7 cards with random Card Objects and then asks the user to pick a card.
  * It then searches the array of cards for the match to the user's card. 
  * To be used as starting code in Exercise
  *
- * @author dancye
- * @author Paul Bonenfant Jan 25, 2022 
+ * @author Juan Jose Alvarez Gil
+ * @author Juan Jose Alvarez Gil 30/05/2023
  */
 public class CardTrick {
     
@@ -15,10 +18,16 @@ public class CardTrick {
         Card[] hand = new Card[7];
 
         for (int i = 0; i < hand.length; i++) {
+            Random random = new Random();
             Card card = new Card();
             //card.setValue(insert call to random number generator here)
-            // 
+            int value = (int)(Math.random()* 13 + 1);
+            card.setValue(value);
             //card.setSuit(Card.SUITS[insert call to random number between 0-3 here])
+            card.setSuit(Card.SUITS[random.nextInt(4)]);
+            
+            hand[i] = card;
+            
             // Hint: You can use Random -> random.nextInt(n) to get a random number between 0 and n-1 (inclusive)
             //       Don't worry about duplicates at this point
         }
@@ -32,7 +41,22 @@ public class CardTrick {
         // Then loop through the cards in the array to see if there's a match.
         
         // If the guess is successful, invoke the printInfo() method below.
+        Card userCard = new Card();
+        Scanner input = new Scanner(System.in);
+        System.out.println("Insert the Card Value");
+        int userValue = input.nextInt();
+        userCard.setValue(userValue);
+        System.out.println("Insert the suit (From 0 to 3)");
+        int userSuit = input.nextInt();
+        userCard.setSuit(Card.SUITS[userSuit]);
         
+        for(int i = 0; i < hand.length ; i++){
+            
+            if(userCard.getSuit().equals(hand[i].getSuit())&& userCard.getValue()== hand[i].getValue()){
+                printInfo();
+            }
+            
+        }
     }
 
     /**
